@@ -16,7 +16,7 @@ public class PortfolioTest {
     @Test
     public void addSingleStockTest(){
         assertTrue(portfolio.addStockToBasePortfolio(StockEnum.APPLE,4));
-        assertEquals(365.20, portfolio.getCurrentPortfolioValue(), 0.00);
+        assertEquals(2500.00, portfolio.getCurrentPortfolioValue(), 0.00);
         assertEquals(2134.80, portfolio.getBuyingPower(), 0.00);
     }
 
@@ -30,10 +30,55 @@ public class PortfolioTest {
         portfolio.addStockToBasePortfolio(StockEnum.MICROSOFT,5);
         portfolio.addStockToBasePortfolio(StockEnum.APPLE,5);
         portfolio.addStockToBasePortfolio(StockEnum.JPMORGANCHASE,5);
-        Double expected = 709.20;
+        Double expected = 2500.00;
         Double actual = portfolio.getCurrentPortfolioValue();
         assertEquals(expected,actual);
         assertEquals(1790.80, portfolio.getBuyingPower(), 0.0);
     }
+
+    @Test
+    public void getEquityOfShareTest(){
+        portfolio.addStockToBasePortfolio(StockEnum.MICROSOFT,5);
+        portfolio.addStockToBasePortfolio(StockEnum.APPLE,5);
+        portfolio.addStockToBasePortfolio(StockEnum.JPMORGANCHASE,5);
+        Double expected = 153.35;
+        Double actual = portfolio.getEquityOfShare("jpmorganchase");
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void numberOfSharesTest(){
+        portfolio.addStockToBasePortfolio(StockEnum.MICROSOFT,5);
+        portfolio.addStockToBasePortfolio(StockEnum.APPLE,5);
+        portfolio.addStockToBasePortfolio(StockEnum.JPMORGANCHASE,10);
+        Integer expected = 10;
+        Integer actual = portfolio.getNumberOfShares("jpmorganchase");
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void currentPortfolioValueTest(){
+        portfolio.addStockToBasePortfolio(StockEnum.MICROSOFT,5);
+        portfolio.addStockToBasePortfolio(StockEnum.APPLE,5);
+        portfolio.addStockToBasePortfolio(StockEnum.JPMORGANCHASE,10);
+        Double expected = 2500.00;
+        Double actual = portfolio.getCurrentPortfolioValue();
+        assertEquals(expected,actual);
+    }
+
+
+    @Test
+    public void portfolioDiversityOfShareTest(){
+        portfolio.addStockToBasePortfolio(StockEnum.MICROSOFT,5);
+        portfolio.addStockToBasePortfolio(StockEnum.APPLE,5);
+        portfolio.addStockToBasePortfolio(StockEnum.JPMORGANCHASE,5);
+        assertEquals(0.06, portfolio.getPortfolioDiversityOfShare("jpmorganchase"), 0.00);
+        assertEquals(0.04, portfolio.getPortfolioDiversityOfShare("microsoft"), 0.00);
+        assertEquals(0.18, portfolio.getPortfolioDiversityOfShare("Apple"), 0.00);
+        assertEquals(0.72, portfolio.getPortfolioDiversityOfShare("cash"), 0.00);
+    }
+
+
+
 
 }

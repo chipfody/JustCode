@@ -12,9 +12,17 @@ public class Portfolio {
     private Double currentPortfolioValue;
 
     public Portfolio() {
-        this.portfolio = new HashMap<StockEnum, Integer>();
+        this.portfolio = new HashMap<>();
         this.buyingPower = 2500.00;
         this.currentPortfolioValue = 0.00;
+    }
+
+    public Double getBuyingPower() {
+        return buyingPower;
+    }
+
+    public Double getCurrentPortfolioValue() {
+        return currentPortfolioValue + buyingPower;
     }
 
     public boolean addStockToBasePortfolio(StockEnum stock, Integer numberOfShares){
@@ -33,14 +41,35 @@ public class Portfolio {
         }
     }
 
-    public double getBuyingPower() {
-        return buyingPower;
+    public Double getEquityOfShare(String stock){
+        for (Map.Entry<StockEnum, Integer> s : portfolio.entrySet()) {
+            if (stock.equalsIgnoreCase(String.valueOf(s.getKey()))){
+                return DoubleRounder.round((s.getKey().getOpen() * s.getValue()),2);
+            }
+        }
+        return null;
     }
 
-    public double getCurrentPortfolioValue() {
-        return currentPortfolioValue;
+    public Integer getNumberOfShares(String stock){
+        for(Map.Entry<StockEnum,Integer> s : portfolio.entrySet()){
+            if (stock.equalsIgnoreCase(String.valueOf(s.getKey()))){
+                return s.getValue();
+            }
+        }
+        return null;
     }
 
+    public Double getPortfolioDiversityOfShare(String stock){
+        Double result = 0.00;
+        Double equityOfShare = getEquityOfShare(stock);
+        if(!stock.equalsIgnoreCase("cash")){
+            result = DoubleRounder.round ((equityOfShare/getCurrentPortfolioValue()),2);
+        }else{
+            result = DoubleRounder.round ((getBuyingPower()/getCurrentPortfolioValue()),2);
+        }
+
+       return result;
+    }
 
 
 
