@@ -95,5 +95,14 @@ public class Portfolio {
         return null;
     }
 
+    public String getAllPositions(){
+        StringBuilder builder = new StringBuilder();
+        for (Map.Entry<StockEnum,Integer> s: portfolio.entrySet()) {
+            builder.append(getPositionOfShare(String.valueOf(s.getKey())))
+                    .append("\n");
+        }
+        return builder.toString();
+    }
+
 
 }

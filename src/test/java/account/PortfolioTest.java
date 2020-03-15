@@ -4,9 +4,15 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import stocks.StockEnum;
+import stocks.StockEnumTest;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PortfolioTest {
     Portfolio portfolio;
+
+    Logger logger = Logger.getLogger(PortfolioTest.class.getName());
 
     @Before
     public void setUP(){
@@ -76,7 +82,7 @@ public class PortfolioTest {
         assertEquals(0.04, portfolio.getPortfolioDiversityOfShare("microsoft"), 0.00);
         assertEquals(0.18, portfolio.getPortfolioDiversityOfShare("Apple"), 0.00);
         assertEquals(0.72, portfolio.getPortfolioDiversityOfShare("cash"), 0.00);
-        System.out.println(portfolio.getPositionOfShare("Apple"));
+        logger.log(Level.INFO, portfolio.getPositionOfShare("Apple"));
     }
 
     @Test
@@ -85,8 +91,16 @@ public class PortfolioTest {
         portfolio.addStockToBasePortfolio(StockEnum.APPLE,5);
         portfolio.addStockToBasePortfolio(StockEnum.JPMORGANCHASE,5);
         assertEquals(18.0, portfolio.getDiversityPercentage("Apple"),0.00);
-        System.out.println(portfolio.getPositionOfShare("Apple"));
     }
+
+    @Test
+    public void getAllPositionsTest(){
+        portfolio.addStockToBasePortfolio(StockEnum.MICROSOFT,5);
+        portfolio.addStockToBasePortfolio(StockEnum.APPLE,5);
+        portfolio.addStockToBasePortfolio(StockEnum.JPMORGANCHASE,5);
+        logger.log(Level.INFO, portfolio.getAllPositions());
+    }
+
 
 
 
