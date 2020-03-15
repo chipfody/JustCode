@@ -4,7 +4,7 @@ import java.util.Date;
 
 public enum StockEnum {
 
-    //STOCK INFO FOR 2008-12-31
+    //------------------------------------STOCK INFO FOR 2008-12-31---------------------------------------
 
     MICROSOFT("MSFT", 19.87, 21.25, 18.47, 19.44, 1546943400),
     APPLE("AAPL", 91.30, 103.60, 84.55, 85.35, 721923100),
@@ -55,5 +55,22 @@ public enum StockEnum {
 
     public Integer getVolume() {
         return volume;
+    }
+
+    public String getAllInfo() {
+        StringBuilder builder = new StringBuilder();
+        String space = " ";
+        builder.append(getSymbol())
+                .append(space)
+                .append(getOpen())
+                .append(space)
+                .append(getHigh())
+                .append(space)
+                .append(getLow())
+                .append(space)
+                .append(getClose())
+                .append(space)
+                .append(getVolume());
+        return builder.toString();
     }
 }
