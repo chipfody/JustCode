@@ -17,12 +17,12 @@ public enum StockEnum {
     EXXON("XOM", 77.89, 83.64, 72.68, 79.83, 996412900);
 
     //AAPL,V,JNJ,COKE,CVX,BP,XOM,JPM,MSFT
-    private final String symbol;
-    private final Double open;
-    private final Double high;
-    private final Double low;
-    private final Double close;
-    private final Integer volume;
+    private String symbol;
+    private Double open;
+    private Double high;
+    private Double low;
+    private Double close;
+    private Integer volume;
 
     StockEnum(String symbol, Double open, Double high, Double low, Double close, Integer volume) {
         this.symbol = symbol;
@@ -57,6 +57,10 @@ public enum StockEnum {
         return volume;
     }
 
+    public void setNewPrice(Double newPrice){
+        open = newPrice;
+    }
+
     public String getAllInfo() {
         StringBuilder builder = new StringBuilder();
         String space = " ";
@@ -73,4 +77,5 @@ public enum StockEnum {
                 .append(getVolume());
         return builder.toString();
     }
+
 }

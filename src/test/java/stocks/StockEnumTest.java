@@ -14,7 +14,6 @@ public class StockEnumTest {
     public void classTest(){
         for (StockEnum stock : StockEnum.values()) {
             logger.log(Level.INFO,stock.toString() + " " + stock.getAllInfo());
-
             //For concise view
             //System.out.println(stock.toString() + " " + stock.getAllInfo());
         }
