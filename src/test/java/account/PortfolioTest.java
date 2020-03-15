@@ -76,6 +76,16 @@ public class PortfolioTest {
         assertEquals(0.04, portfolio.getPortfolioDiversityOfShare("microsoft"), 0.00);
         assertEquals(0.18, portfolio.getPortfolioDiversityOfShare("Apple"), 0.00);
         assertEquals(0.72, portfolio.getPortfolioDiversityOfShare("cash"), 0.00);
+        System.out.println(portfolio.getPositionOfShare("Apple"));
+    }
+
+    @Test
+    public void diversityPercentageTest(){
+        portfolio.addStockToBasePortfolio(StockEnum.MICROSOFT,5);
+        portfolio.addStockToBasePortfolio(StockEnum.APPLE,5);
+        portfolio.addStockToBasePortfolio(StockEnum.JPMORGANCHASE,5);
+        assertEquals(18.0, portfolio.getDiversityPercentage("Apple"),0.00);
+        System.out.println(portfolio.getPositionOfShare("Apple"));
     }
 
 

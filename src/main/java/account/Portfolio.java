@@ -71,6 +71,29 @@ public class Portfolio {
        return result;
     }
 
+    public Double getDiversityPercentage(String stock){
+        return (getPortfolioDiversityOfShare(stock)*100);
+    }
+
+
+    public String getPositionOfShare(String stock){
+        StockEnum currentStock = getStock(stock);
+        StringBuilder builder = new StringBuilder();
+        builder.append("****YOUR POSITION****")
+                .append(String.format("\nSymbol = %s\nShares = %d\nEquity = %.2f\nDiversity = %.2f",
+                        currentStock.getSymbol(), getNumberOfShares(stock),getEquityOfShare(stock),getDiversityPercentage(stock)));
+        builder.append("%");
+        return builder.toString();
+    }
+
+    private StockEnum getStock(String stock){
+        for (Map.Entry<StockEnum, Integer> s: portfolio.entrySet()){
+            if (String.valueOf(s.getKey()).equalsIgnoreCase(stock)){
+                return s.getKey();
+            }
+        }
+        return null;
+    }
 
 
 }
