@@ -32,6 +32,10 @@ public class Stock {
         return name;
     }
 
+    public void setInfo(String info){
+        this.info = info;
+    }
+
     public String getInfo(){
         return info;
     }
