@@ -29,7 +29,7 @@ public class Transaction {
         return costPerShare * numOfShare;
     }
 
-    public TransactionMeta getTransactionPriceFull(){
-        return metaData;
-    }
+//    public TransactionMeta getTransactionPriceFull(){
+//        return metaData;
+//    }
 }
