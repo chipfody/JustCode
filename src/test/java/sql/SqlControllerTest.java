@@ -17,4 +17,10 @@ public class SqlControllerTest {
         SqlController.getStock("msft", "_2020_03");
     }
 
+    @Test
+    public void createTableTest() {
+        //SqlController.connectSqlServer();
+        SqlController.createTable();
+    }
+
 }

@@ -9,14 +9,16 @@ public class SqlController {
         try{
             Class.forName("org.postgresql.Driver");
             connection = DriverManager
-                    .getConnection("jdbc:postgresql://localhost:5432/stocks");
+                    .getConnection("jdbc:postgresql://zipcode-group-project.cx9szw6knskg.us-east-1.rds.amazonaws.com:5432/stockprices",
+                            "zcgroupproject", "cdhkvvkhdc");
+            System.out.println("Opened database successfully");
             connection.setAutoCommit(false);
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
-        System.out.println("Opened database successfully");
+        System.out.println("Database still open");
 
     }
 
@@ -56,5 +58,32 @@ public class SqlController {
             System.exit(0);
         }
         System.out.println("Records created successfully");
+    }
+
+    public static void createTable() {
+        Statement statement = null;
+        try {
+            Class.forName("org.postgresql.Driver");
+            connection = DriverManager
+                    .getConnection("jdbc:postgresql://zipcode-group-project.cx9szw6knskg.us-east-1.rds.amazonaws.com:5432/stockprices",
+                            "zcgroupproject", "cdhkvvkhdc");
+            System.out.println("Opened database successfully");
+
+            statement = connection.createStatement();
+            String sql = "CREATE TABLE StockCall " +
+                    "(TICKER        VARCHAR(10) PRIMARY KEY NOT NULL," +
+                    " OPEN          NUMERIC(4,2)   NOT NULL, " +
+                    " HIGH          NUMERIC(4,2)   NOT NULL, " +
+                    " LOW           NUMERIC(4,2)   NOT NULL, " +
+                    " CLOSE         NUMERIC(4,2)  NOT NULL," +
+                    " VOLUME        BIGINT)";
+            statement.executeUpdate(sql);
+            statement.close();
+            connection.close();
+        } catch (SQLException | ClassNotFoundException e ) {
+            System.err.println( e.getClass().getName()+": "+ e.getMessage() );
+            System.exit(0);
+        }
+        System.out.println("Table created successfully");
     }
 }
