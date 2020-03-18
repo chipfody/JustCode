@@ -9,11 +9,11 @@ public class ParsingJSON {
 
     private String symbol;
     private String dateOfMonth;
-    private String open;
-    private String high;
-    private String low;
-    private String close;
-    private String volume;
+    private Double open;
+    private Double high;
+    private Double low;
+    private Double close;
+    private Integer volume;
 
 
     public void makeMonthObjects(String JSON){
@@ -32,11 +32,11 @@ public class ParsingJSON {
                 JSONObject monthlyJSONObject = monthly.getJSONObject((String) o);
 
                 dateOfMonth = (String) o;
-                open = monthlyJSONObject.getString("1. open");
-                high = monthlyJSONObject.getString("2. high");
-                low = monthlyJSONObject.getString("3. low");
-                close = monthlyJSONObject.getString("4. close");
-                volume = monthlyJSONObject.getString("5. volume");
+                open = Double.valueOf(monthlyJSONObject.getString("1. open"));
+                high = Double.valueOf(monthlyJSONObject.getString("2. high"));
+                low = Double.valueOf(monthlyJSONObject.getString("3. low"));
+                close = Double.valueOf(monthlyJSONObject.getString("4. close"));
+                volume = Integer.valueOf(monthlyJSONObject.getString("5. volume"));
                 monthIterator.next();
 
             }
@@ -55,23 +55,23 @@ public class ParsingJSON {
         return this.dateOfMonth;
     }
 
-    public String getOpen() {
+    public Double getOpen() {
         return this.open;
     }
 
-    public String getHigh() {
+    public Double getHigh() {
         return this.high;
     }
 
-    public String getLow() {
+    public Double getLow() {
         return this.low;
     }
 
-    public String getClose() {
+    public Double getClose() {
         return this.close;
     }
 
-    public String getVolume() {
+    public Integer getVolume() {
         return this.volume;
     }
 }
