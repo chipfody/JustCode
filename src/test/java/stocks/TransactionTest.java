@@ -49,4 +49,26 @@ public class TransactionTest {
 
         assertEquals(expectedTotal, actualTotal);
     }
+
+    @Test
+    public void makeTransactionTest(){
+        Transaction transaction = Transaction.makeTransaction("Test","_2020-03",10);
+        String expected = "_2020-03";
+        String actual = transaction.getDateOfTrade();
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void makeTransactionDetailsTest(){
+        Transaction transaction = Transaction.makeTransaction("Test","_2020-03",10);
+        String expectedDate = "_2020-03";
+        String actualDate = transaction.getDateOfTrade();
+        Double expectedCostPerShare = 145.70;
+        Double actualCostPerShare = transaction.getCostPerShare();
+        Double expectedTransactionTotal = 1457.00;
+        Double actualTransactionTotal = transaction.calculateTransactionTotal();
+        assertEquals(expectedDate,actualDate);
+        assertEquals(expectedCostPerShare,actualCostPerShare);
+        assertEquals(expectedTransactionTotal,actualTransactionTotal);
+    }
 }

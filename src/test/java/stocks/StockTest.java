@@ -116,4 +116,17 @@ public class StockTest {
         Double actual = test.getValueOfPosition();
         assertEquals(expected,actual);
     }
+
+    @Test
+    public void addTransactionCallingServerTest(){
+        test.addTransaction(Transaction.makeTransaction("test","_2020-03",10));
+        test.updateCurrentStockPrice("test","_2020-03");
+        Integer expectedNumOfShares = 10;
+        Integer actualNumOfShares = test.getTotalNumOfShares();
+        Double expectedValOfPosition = 1457.00;
+        Double actualValOfPosition = test.getValueOfPosition();
+        assertEquals(expectedNumOfShares,actualNumOfShares);
+        assertEquals(expectedValOfPosition,actualValOfPosition);
+    }
+
 }

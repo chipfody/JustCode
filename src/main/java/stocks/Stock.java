@@ -44,6 +44,7 @@ public class Stock {
     public Double getCurrentStockPrice(){
         return currentStockPrice;
     }
+
     public void updateCurrentStockPrice(String stockSymbol,String month){
         currentStockPrice = SqlController.getStock(stockSymbol,month).getClose();
         valueOfPosition = DoubleRounder.round(totalNumOfShares * currentStockPrice,2);

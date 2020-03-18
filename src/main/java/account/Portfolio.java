@@ -1,17 +1,22 @@
 package account;
 
 import org.decimal4j.util.DoubleRounder;
+import stocks.Stock;
 import stocks.StockEnum;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Portfolio {
+    private ArrayList<Stock> mainPortfolio;
+
     private Map<StockEnum,Integer> portfolio;
     private Double buyingPower;
     private Double currentPortfolioValue;
 
     public Portfolio() {
+        this.mainPortfolio = new ArrayList<>();
         this.portfolio = new HashMap<>();
         this.buyingPower = 2500.00;
         this.currentPortfolioValue = 0.00;
@@ -23,6 +28,25 @@ public class Portfolio {
 
     public Double getCurrentPortfolioValue() {
         return currentPortfolioValue + buyingPower;
+    }
+
+    public boolean addStockToPortfolio(Stock stock){
+        if(mainPortfolio.contains(stock)){
+            return false;
+        } else {
+            mainPortfolio.add(stock);
+        }
+        return true;
+    }
+
+    public void purchaseStock(String stockSymbol, String month, Integer numOfShares){
+
+    }
+
+    public void updateCurrentPortfolioValue(String month){
+        for (Stock s: mainPortfolio) {
+            s.updateCurrentStockPrice(s.symbol,month);
+        }
     }
 
     public boolean addStockToBasePortfolio(StockEnum stock, Integer numberOfShares){

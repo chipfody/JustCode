@@ -3,8 +3,10 @@ package account;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import stocks.StockEnum;
 
+import stocks.Stock;
+import stocks.StockEnum;
+import stocks.Transaction;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -101,6 +103,13 @@ public class PortfolioTest {
         logger.log(Level.INFO, portfolio.getAllPositions());
     }
 
+    @Test
+    public void addStockToPortfolio(){
+        Stock stock = new Stock("MSFT", "Microsoft");
+        Transaction transaction = Transaction.makeTransaction("Test","_2020-03",10);
+        assertTrue(stock.addTransaction(transaction));
+        assertTrue(portfolio.addStockToPortfolio(stock));
+    }
 
 
 
