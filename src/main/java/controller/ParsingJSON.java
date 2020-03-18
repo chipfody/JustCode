@@ -37,6 +37,7 @@ public class ParsingJSON {
                 low = monthlyJSONObject.getString("3. low");
                 close = monthlyJSONObject.getString("4. close");
                 volume = monthlyJSONObject.getString("5. volume");
+                monthIterator.next();
 
             }
 
