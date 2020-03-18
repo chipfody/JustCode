@@ -84,7 +84,22 @@ public class Portfolio {
     }
 
     public Double getEquityOfStock(Stock stock){
-        return DoubleRounder.round(stock.getCurrentStockPrice() * stock.getTotalNumOfShares(),2);
+        return DoubleRounder.round((stock.getCurrentStockPrice() * stock.getTotalNumOfShares()),2);
     }
 
+    public String getPositionOfStock(String stockSymbol){
+        StringBuilder builder = new StringBuilder();
+        Stock stock = getStockFromPortfolio(stockSymbol);
+        builder.append("Name : ")
+                .append(stock.name)
+                .append("\nSymbol : ")
+                .append(stock.symbol)
+                .append("\nNumber of Shares : ")
+                .append(stock.totalNumOfShares)
+                .append("\nCurrent Price : ")
+                .append(stock.currentStockPrice)
+                .append("\nEquity : ")
+                .append(stock.valueOfPosition);
+        return builder.toString();
+    }
 }

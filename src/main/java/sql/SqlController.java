@@ -22,7 +22,6 @@ public class SqlController {
             System.exit(0);
         }
         System.out.println("Database still open");
-
     }
 
     public static void insertStock(){

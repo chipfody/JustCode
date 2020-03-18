@@ -32,7 +32,17 @@ public class PortfolioTest {
 
     @Test
     public void getEquityOfStockTest(){
-
+        Stock stock = new Stock("Test", "Microsoft");
+        Transaction transaction = Transaction.makeTransaction("Test","_2020-03",10);
+        stock.addTransaction(transaction);
+        portfolio.addStockToPortfolio(stock);
+        stock.updateCurrentStockPrice("Test", "_2020-03");
+        Integer expectedNumOfShares = 10;
+        Integer actualNumOfShares = stock.getTotalNumOfShares();
+        Double expected = 1457.00;
+        Double actual = portfolio.getEquityOfStock(portfolio.getStockFromPortfolio("Test"));
+        assertEquals(expectedNumOfShares,actualNumOfShares);
+        assertEquals(expected,actual);
     }
 
     @Test
@@ -49,7 +59,16 @@ public class PortfolioTest {
         assertEquals(expectedBuyingPower,actualBuyingPower);
     }
 
-
-
+    @Test
+    public void getPositionOfStock(){
+        Stock stock = new Stock("Test", "Microsoft");
+        Transaction transaction = Transaction.makeTransaction("Test","_2020-03",10);
+        stock.addTransaction(transaction);
+        portfolio.addStockToPortfolio(stock);
+        stock.updateCurrentStockPrice("Test", "_2020-03");
+        String expected = "Name : Microsoft\nSymbol : Test\nNumber of Shares : 10\nCurrent Price : 145.7\nEquity : 1457.0";
+        String actual = portfolio.getPositionOfStock("Test");
+        assertEquals(expected,actual);
+    }
 
 }
