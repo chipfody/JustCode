@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import stocks.StockEnum;
-import stocks.StockEnumTest;
+
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

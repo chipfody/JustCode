@@ -1,5 +1,7 @@
 package stocks;
 
+import sql.SqlController;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,9 +40,12 @@ public class Stock {
         return info;
     }
 
-    //TODO - CONNECT TO DB PER DATE
     public Double getCurrentStockPrice(){
         return currentStockPrice;
+    }
+
+    public void updateCurrentStockPrice(String stockSymbol,String month){
+        currentStockPrice = SqlController.getStock(stockSymbol,month).getClose();
     }
 
     //TODO - CONNECT TO DB PER DATE

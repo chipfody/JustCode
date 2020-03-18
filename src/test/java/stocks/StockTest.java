@@ -97,4 +97,14 @@ public class StockTest {
     public void getTransactionTest2(){
         test.getTransaction(expectedDate);
     }
+
+    @Test
+    public void updateCurrentStockPriceTest(){
+        test.currentStockPrice = 0.0;
+        test.updateCurrentStockPrice("msft","_2020-03");
+        Double expected = 145.70;
+        Double actual = test.getCurrentStockPrice();
+        assertEquals(expected,actual);
+
+    }
 }

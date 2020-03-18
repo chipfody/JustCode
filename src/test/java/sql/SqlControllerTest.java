@@ -14,7 +14,6 @@ public class SqlControllerTest {
 
     @Test
     public void getStockTest(){
-        SqlController.connectSqlServer();
          TransactionMeta stock = SqlController.getStock("msft", "_2020-03");
          Integer actual = stock.getVolume();
          Integer expected = 636200296;
