@@ -1,5 +1,8 @@
 package sql;
 
+import stocks.Transaction;
+import stocks.TransactionMeta;
+
 import java.sql.*;
 
 public class SqlController {
@@ -46,26 +49,29 @@ public class SqlController {
         System.out.println("Records created successfully");
     }
 
-    public static void getStock(String stock, String month){
+    public static TransactionMeta getStock(String stockSymbol, String month){
+        TransactionMeta.TransactionMetaBuilder builder = new TransactionMeta.TransactionMetaBuilder();
         try{
-            Statement insert = connection.createStatement();
-            String sql = "SELECT * FROM " + month +
-                    " WHERE TICKER = '" + stock.toUpperCase() + "';";
-            ResultSet rs = insert.executeQuery(sql);
+            Statement statement = connection.createStatement();
+            String sql = "SELECT * FROM " + stockSymbol +
+                    " WHERE month = '" + month + "';";
+            ResultSet rs = statement.executeQuery(sql);
             while (rs.next()){
-                Double open = rs.getDouble("open");
-                Double high = rs.getDouble("high");
-                Double low = rs.getDouble("low");
-                Double close = rs.getDouble("close");
-                Integer volume = rs.getInt("volume");
-                System.out.println(new StringBuilder().append(open + " ").append(high + " ")
-                        .append(low + " ").append(close + " ").append(volume));
+                builder.setDate(rs.getString("month"))
+                .setOpen(rs.getDouble("open"))
+                .setHigh(rs.getDouble("high"))
+                .setLow(rs.getDouble("low"))
+                .setClose(rs.getDouble("close"))
+                .setVolume(rs.getInt("volume"));
             }
+            statement.close();
+            connection.close();
         } catch (SQLException e) {
             System.err.println( e.getClass().getName()+": "+ e.getMessage() );
             System.exit(0);
         }
         System.out.println("Records created successfully");
+        return builder.build();
     }
 
     public static void createTable() {
