@@ -23,11 +23,18 @@ public class SqlController {
     }
 
     public static void insertStock(){
+        //Connection connection = null;
+        //String ticker = "MSFT";
+        //SqlController.createTable();
+        String sql = "INSERT INTO AMZN (TICKER, MONTH, OPEN, HIGH, LOW, CLOSE, VOLUME) " +
+                "VALUES ('MSFT', '_2020_03',165.31, 175.00, 138.58, 145.70, 636200296);";
+        //Statement statement = null;
         try {
+            //assert connection != null;
             Statement insert = connection.createStatement();
-            String sql = "INSERT INTO _2020_03 (TICKER, OPEN, HIGH, LOW, CLOSE, VOLUME) " +
-                    "VALUES ('MSFT', 165.3100, 175.0000, 138.5800, 145.7000, 636200296);";
+
             insert.executeUpdate(sql);
+            System.out.println(sql);
             insert.close();
             connection.commit();
             connection.close();
@@ -70,12 +77,14 @@ public class SqlController {
             System.out.println("Opened database successfully");
 
             statement = connection.createStatement();
-            String sql = "CREATE TABLE StockCall " +
+            String stockName = "AMZN";
+            String sql = "CREATE TABLE " + stockName +
                     "(TICKER        VARCHAR(10) PRIMARY KEY NOT NULL," +
-                    " OPEN          NUMERIC(4,2)   NOT NULL, " +
-                    " HIGH          NUMERIC(4,2)   NOT NULL, " +
-                    " LOW           NUMERIC(4,2)   NOT NULL, " +
-                    " CLOSE         NUMERIC(4,2)  NOT NULL," +
+                    " MONTH         VARCHAR(15) NOT NULL," +
+                    " OPEN          DECIMAL   NOT NULL, " +
+                    " HIGH          DECIMAL   NOT NULL, " +
+                    " LOW           DECIMAL   NOT NULL, " +
+                    " CLOSE         DECIMAL  NOT NULL," +
                     " VOLUME        BIGINT)";
             statement.executeUpdate(sql);
             statement.close();

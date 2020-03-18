@@ -12,6 +12,12 @@ public class SqlControllerTest {
     }
 
     @Test
+    public void insertStockTest() {
+        SqlController.connectSqlServer();
+        SqlController.insertStock();
+    }
+
+    @Test
     public void getStockTest(){
         SqlController.connectSqlServer();
         SqlController.getStock("msft", "_2020_03");
@@ -19,7 +25,7 @@ public class SqlControllerTest {
 
     @Test
     public void createTableTest() {
-        //SqlController.connectSqlServer();
+//        SqlController.connectSqlServer();
         SqlController.createTable();
     }
 
