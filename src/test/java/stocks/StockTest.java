@@ -93,7 +93,6 @@ public class StockTest {
     }
 
     @Test
-//    @Test(expected = NullPointerException.class)
     public void getTransactionTest2(){
         test.getTransaction(expectedDate);
     }
@@ -101,10 +100,20 @@ public class StockTest {
     @Test
     public void updateCurrentStockPriceTest(){
         test.currentStockPrice = 0.0;
-        test.updateCurrentStockPrice("msft","_2020-03");
+        test.updateCurrentStockPrice("test","_2020-03");
         Double expected = 145.70;
         Double actual = test.getCurrentStockPrice();
         assertEquals(expected,actual);
 
+    }
+
+    @Test
+    public void getValueOfPositionTest(){
+        test.currentStockPrice = 0.0;
+        test.addTransaction(transaction);
+        test.updateCurrentStockPrice("test","_2020-03");
+        Double expected = 437.10;
+        Double actual = test.getValueOfPosition();
+        assertEquals(expected,actual);
     }
 }

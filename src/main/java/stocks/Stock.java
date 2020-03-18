@@ -1,5 +1,6 @@
 package stocks;
 
+import org.decimal4j.util.DoubleRounder;
 import sql.SqlController;
 
 import java.util.ArrayList;
@@ -43,12 +44,11 @@ public class Stock {
     public Double getCurrentStockPrice(){
         return currentStockPrice;
     }
-
     public void updateCurrentStockPrice(String stockSymbol,String month){
         currentStockPrice = SqlController.getStock(stockSymbol,month).getClose();
+        valueOfPosition = DoubleRounder.round(totalNumOfShares * currentStockPrice,2);
     }
 
-    //TODO - CONNECT TO DB PER DATE
     public Double getValueOfPosition(){
         return valueOfPosition;
     }

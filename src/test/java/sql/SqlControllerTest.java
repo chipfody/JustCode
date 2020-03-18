@@ -14,7 +14,7 @@ public class SqlControllerTest {
 
     @Test
     public void getStockTest(){
-         TransactionMeta stock = SqlController.getStock("msft", "_2020-03");
+         TransactionMeta stock = SqlController.getStock("test", "_2020-03");
          Integer actual = stock.getVolume();
          Integer expected = 636200296;
          assertEquals(actual, expected);
