@@ -4,6 +4,7 @@ import java.sql.*;
 
 public class SqlController {
     private static Connection connection = null;
+    private String symbol;
 
     public static void connectSqlServer(){
         try{
@@ -24,7 +25,7 @@ public class SqlController {
 
     public static void insertStock(){
         //Connection connection = null;
-        //String ticker = "MSFT";
+        String symbol = "MSFT";
         //SqlController.createTable();
         String sql = "INSERT INTO AMZN (TICKER, MONTH, OPEN, HIGH, LOW, CLOSE, VOLUME) " +
                 "VALUES ('MSFT', '_2020_03',165.31, 175.00, 138.58, 145.70, 636200296);";
@@ -77,8 +78,8 @@ public class SqlController {
             System.out.println("Opened database successfully");
 
             statement = connection.createStatement();
-            String stockName = "AMZN";
-            String sql = "CREATE TABLE " + stockName +
+            String symbol = "AMZN";
+            String sql = "CREATE TABLE " + symbol +
                     "(TICKER        VARCHAR(10) PRIMARY KEY NOT NULL," +
                     " MONTH         VARCHAR(15) NOT NULL," +
                     " OPEN          DECIMAL   NOT NULL, " +
