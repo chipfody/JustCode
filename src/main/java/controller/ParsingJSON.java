@@ -16,7 +16,7 @@ public class ParsingJSON {
     private Integer volume;
 
 
-    public void makeMonthObjects(String JSON){
+    public void makingJSONFile(String JSON){
 
         try {
             JSONObject stock = new JSONObject(JSON);
