@@ -1,11 +1,14 @@
 package controller;
 
 import kong.unirest.json.JSONObject;
+
+import java.io.File;
+import java.io.FileWriter;
 import java.util.Iterator;
 import java.util.Set;
 
 
-public class ParsingJSON {
+public class JSON {
 
     private String symbol;
     private String dateOfMonth;
@@ -16,7 +19,7 @@ public class ParsingJSON {
     private Integer volume;
 
 
-    public void makingJSONFile(String JSON){
+    public void parsingJSON(String JSON) {
 
         try {
             JSONObject stock = new JSONObject(JSON);
@@ -42,9 +45,25 @@ public class ParsingJSON {
             }
 
         } catch (Exception e){
-            System.err.println(e.getMessage() );
+            System.err.println(e.getMessage());
             System.exit(0);
         }
+
+    }
+
+    public void makingJSONFile(String JSON) {
+
+        try{
+            FileWriter file = new FileWriter(new File("/Users/hlin/Documents/Projects/Group.Projects/JustCode/src/main/resources/"
+                                                                + getSymbol() + ".json"));
+            file.write(JSON);
+            file.close();
+
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            System.exit(0);
+        }
+
     }
 
     public String getSymbol() {
