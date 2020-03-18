@@ -2,7 +2,6 @@ package stocks;
 
 import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

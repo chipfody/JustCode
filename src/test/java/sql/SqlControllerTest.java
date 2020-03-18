@@ -1,6 +1,7 @@
 package sql;
 
 import org.junit.Test;
+import stocks.TransactionMeta;
 
 import static org.junit.Assert.*;
 
@@ -14,7 +15,10 @@ public class SqlControllerTest {
     @Test
     public void getStockTest(){
         SqlController.connectSqlServer();
-        SqlController.getStock("msft", "_2020_03");
+         TransactionMeta stock = SqlController.getStock("msft", "_2020-03");
+         Integer actual = stock.getVolume();
+         Integer expected = 636200296;
+         assertEquals(actual, expected);
     }
 
     @Test

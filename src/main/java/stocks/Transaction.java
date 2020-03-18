@@ -1,5 +1,7 @@
 package stocks;
 
+import sql.SqlController;
+
 public class Transaction {
     private final String dateOfTrade;
     private final Integer numOfShare;
@@ -29,7 +31,10 @@ public class Transaction {
         return costPerShare * numOfShare;
     }
 
-//    public TransactionMeta getTransactionPriceFull(){
-//        return metaData;
-//    }
+    public Transaction makeTransaction(){
+        SqlController.connectSqlServer();
+        TransactionMeta.TransactionMetaBuilder builder = TransactionMeta.TransactionMetaBuilder.newInstance();
+
+        return null;
+    }
 }
