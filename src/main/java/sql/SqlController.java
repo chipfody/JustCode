@@ -8,29 +8,25 @@ import java.sql.*;
 public class SqlController {
     private static Connection connection = null;
 
-    public static void connectSqlServer(){
-        try{
-            Class.forName("org.postgresql.Driver");
-            connection = DriverManager
-                    .getConnection("jdbc:postgresql://zipcode-group-project.cx9szw6knskg.us-east-1.rds.amazonaws.com:5432/stockprices",
-                            "zcgroupproject", "cdhkvvkhdc");
-            System.out.println("Opened database successfully");
-            connection.setAutoCommit(false);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
-        }
-        System.out.println("Database still open");
-    }
+//<<<<<<< HEAD
+    public static void insertStock(String symbol, String month, Double open, Double high, Double low, Double close, Integer volume) throws SQLException {
+        SqlController.createTable(symbol);
+        String  sql = "INSERT INTO " + symbol + " (ticker, month, open, high, low, close, volume) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?);";
 
-    public static void insertStock(){
         try {
-            Statement insert = connection.createStatement();
-            String sql = "INSERT INTO _2020_03 (TICKER, OPEN, HIGH, LOW, CLOSE, VOLUME) " +
-                    "VALUES ('MSFT', 165.3100, 175.0000, 138.5800, 145.7000, 636200296);";
-            insert.executeUpdate(sql);
-            insert.close();
+            PreparedStatement preparedStatement =  connection.prepareStatement(sql);
+
+            preparedStatement.setString(1, symbol);
+            preparedStatement.setString(2, month);
+            preparedStatement.setDouble(3, open);
+            preparedStatement.setDouble(4, high);
+            preparedStatement.setDouble(5, low);
+            preparedStatement.setDouble(6, close);
+            preparedStatement.setInt(7, volume);
+
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
             connection.commit();
             connection.close();
         } catch (SQLException e) {
@@ -66,27 +62,38 @@ public class SqlController {
         return builder.build();
     }
 
-    public static void createTable() {
-        Statement statement = null;
-        try {
+    public static void connectSqlServer(){
+        try{
             Class.forName("org.postgresql.Driver");
             connection = DriverManager
                     .getConnection("jdbc:postgresql://zipcode-group-project.cx9szw6knskg.us-east-1.rds.amazonaws.com:5432/stockprices",
                             "zcgroupproject", "cdhkvvkhdc");
-            System.out.println("Opened database successfully");
+            System.out.println("Opened database successfully in connect");
+            connection.setAutoCommit(false);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        System.out.println("Database remains open");
+    }
 
+    public static void createTable(String symbol) {
+        connectSqlServer();
+        Statement statement = null;
+        try {
             statement = connection.createStatement();
-            String sql = "CREATE TABLE StockCall " +
+            String sql = "CREATE TABLE " + symbol +
                     "(TICKER        VARCHAR(10) PRIMARY KEY NOT NULL," +
-                    " OPEN          NUMERIC(4,2)   NOT NULL, " +
-                    " HIGH          NUMERIC(4,2)   NOT NULL, " +
-                    " LOW           NUMERIC(4,2)   NOT NULL, " +
-                    " CLOSE         NUMERIC(4,2)  NOT NULL," +
+                    " MONTH         VARCHAR(15) NOT NULL," +
+                    " OPEN          DECIMAL   NOT NULL, " +
+                    " HIGH          DECIMAL   NOT NULL, " +
+                    " LOW           DECIMAL   NOT NULL, " +
+                    " CLOSE         DECIMAL  NOT NULL," +
                     " VOLUME        BIGINT)";
             statement.executeUpdate(sql);
             statement.close();
-            connection.close();
-        } catch (SQLException | ClassNotFoundException e ) {
+        } catch (SQLException e ) {
             System.err.println( e.getClass().getName()+": "+ e.getMessage() );
             System.exit(0);
         }
