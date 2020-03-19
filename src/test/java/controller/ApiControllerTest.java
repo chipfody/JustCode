@@ -2,9 +2,14 @@ package controller;
 
 import org.junit.Test;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import static org.junit.Assert.assertEquals;
 
 public class ApiControllerTest {
+
+    Logger logger = Logger.getLogger(ApiControllerTest.class.getName());
 
     @Test
     public void testCreateApiQuery(){
@@ -18,9 +23,9 @@ public class ApiControllerTest {
     // IMPORTANT! This test makes calls to the API, change the symbol to retrieve different stock tickers!
     @Test
     public void testFetchApiQuery(){
-        String symbol = "HD";
+        String symbol = "AAPL";
         String resultOfCall = ApiController.fetchApiQuery(ApiController.createApiQuery(symbol));
-        System.out.println(resultOfCall);
+        logger.log(Level.INFO,resultOfCall);
     }
 }
 
