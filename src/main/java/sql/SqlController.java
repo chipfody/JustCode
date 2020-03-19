@@ -8,7 +8,8 @@ import java.sql.*;
 public class SqlController {
     private static Connection connection = null;
 
-    public static void insertStock(String symbol, String month, Double open, Double high, Double low, Double close, Integer volume) {
+//<<<<<<< HEAD
+    public static void insertStock(String symbol, String month, Double open, Double high, Double low, Double close, Integer volume) throws SQLException {
         SqlController.createTable(symbol);
         String  sql = "INSERT INTO " + symbol + " (ticker, month, open, high, low, close, volume) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?);";
@@ -37,6 +38,7 @@ public class SqlController {
 
     public static TransactionMeta getStock(String stockSymbol, String month){
         TransactionMeta.TransactionMetaBuilder builder = new TransactionMeta.TransactionMetaBuilder();
+        connectSqlServer();
         try{
             Statement statement = connection.createStatement();
             String sql = "SELECT * FROM " + stockSymbol +
