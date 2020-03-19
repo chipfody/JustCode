@@ -6,8 +6,6 @@ import static org.junit.Assert.*;
 
 import stocks.Stock;
 import stocks.Transaction;
-
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class PortfolioTest {
@@ -65,10 +63,20 @@ public class PortfolioTest {
         Transaction transaction = Transaction.makeTransaction("Test","_2020-03",10);
         stock.addTransaction(transaction);
         portfolio.addStockToPortfolio(stock);
-        stock.updateCurrentStockPrice("Test", "_2020-03");
+        portfolio.updateCurrentPortfolioValue("_2020-03");
         String expected = "Name : Microsoft\nSymbol : Test\nNumber of Shares : 10\nCurrent Price : 145.7\nEquity : 1457.0";
         String actual = portfolio.getPositionOfStock("Test");
         assertEquals(expected,actual);
+    }
+
+    @Test
+    public void getPositionOfAllStock(){
+        Stock stock = new Stock("Test", "Microsoft");
+        Transaction transaction = Transaction.makeTransaction("Test","_2020-03",10);
+        stock.addTransaction(transaction);
+        portfolio.addStockToPortfolio(stock);
+        portfolio.updateCurrentPortfolioValue("_2020-03");
+        System.out.println(portfolio.getAllPositionsFromPortfolio());
     }
 
 }

@@ -5,6 +5,7 @@ import stocks.Stock;
 import stocks.StockEnum;
 import stocks.Transaction;
 import utilities.Console;
+import utilities.Messages;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,14 +14,11 @@ import java.util.Map;
 public class Portfolio {
     private ArrayList<Stock> mainPortfolio;
     Console console = new Console(System.in,System.out);
-
-    private Map<StockEnum,Integer> portfolio;
     private Double buyingPower;
     private Double currentPortfolioValue;
 
     public Portfolio() {
         this.mainPortfolio = new ArrayList<>();
-        this.portfolio = new HashMap<>();
         this.buyingPower = 2500.00;
         this.currentPortfolioValue = 0.00;
     }
@@ -50,7 +48,7 @@ public class Portfolio {
                 }
                 buyingPower = buyingPower - costOfPurchase;
             } else{
-                //TODO Insert method to print "not enough funds to make purchase"
+                console.println(Messages.notEnough);
             }
     }
 
@@ -100,6 +98,15 @@ public class Portfolio {
                 .append(stock.currentStockPrice)
                 .append("\nEquity : ")
                 .append(stock.valueOfPosition);
+        return builder.toString();
+    }
+
+    public String getAllPositionsFromPortfolio(){
+        StringBuilder builder = new StringBuilder();
+        for (Stock s : mainPortfolio) {
+            builder.append(getPositionOfStock(s.symbol))
+                    .append("\n");
+        }
         return builder.toString();
     }
 }
