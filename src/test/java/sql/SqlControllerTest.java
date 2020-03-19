@@ -3,6 +3,8 @@ package sql;
 import org.junit.Test;
 import stocks.TransactionMeta;
 
+import java.sql.SQLException;
+
 import static org.junit.Assert.*;
 
 public class SqlControllerTest {
@@ -13,9 +15,9 @@ public class SqlControllerTest {
     }
 
     @Test
-    public void insertStockTest() {
-        SqlController.connectSqlServer();
-        SqlController.insertStock();
+    public void insertStockTest() throws SQLException {
+        //SqlController.connectSqlServer();
+        SqlController.insertStock("QVC", "_2020-03", 165.2134, 175.0056, 56.9832, 138.5819, 636200296);
     }
 
     @Test
@@ -30,7 +32,7 @@ public class SqlControllerTest {
     @Test
     public void createTableTest() {
 //        SqlController.connectSqlServer();
-        SqlController.createTable();
-    }
+        SqlController.createTable("QVC");
+ }
 
 }
