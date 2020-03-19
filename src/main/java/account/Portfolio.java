@@ -2,14 +2,12 @@ package account;
 
 import org.decimal4j.util.DoubleRounder;
 import stocks.Stock;
-import stocks.StockEnum;
 import stocks.Transaction;
 import utilities.Console;
 import utilities.Messages;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+
 
 public class Portfolio {
     private ArrayList<Stock> mainPortfolio;
@@ -104,7 +102,9 @@ public class Portfolio {
     public String getAllPositionsFromPortfolio(){
         StringBuilder builder = new StringBuilder();
         for (Stock s : mainPortfolio) {
-            builder.append(getPositionOfStock(s.symbol))
+            builder.append("*******************")
+                    .append("\n")
+                    .append(getPositionOfStock(s.symbol))
                     .append("\n");
         }
         return builder.toString();

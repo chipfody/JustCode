@@ -71,10 +71,15 @@ public class PortfolioTest {
 
     @Test
     public void getPositionOfAllStock(){
-        Stock stock = new Stock("Test", "Microsoft");
-        Transaction transaction = Transaction.makeTransaction("Test","_2020-03",10);
+        Stock stock = new Stock("test", "Microsoft");
+        Transaction transaction = Transaction.makeTransaction("test","_2020-03",10);
         stock.addTransaction(transaction);
+        Stock stock2 = new Stock("test2", "Apple");
+        Transaction transaction2 = Transaction.makeTransaction("test2","_2020-03",4);
+        stock.addTransaction(transaction);
+        stock2.addTransaction(transaction2);
         portfolio.addStockToPortfolio(stock);
+        portfolio.addStockToPortfolio(stock2);
         portfolio.updateCurrentPortfolioValue("_2020-03");
         System.out.println(portfolio.getAllPositionsFromPortfolio());
     }
