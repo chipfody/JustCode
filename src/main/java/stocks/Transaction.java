@@ -1,5 +1,6 @@
 package stocks;
 
+import org.decimal4j.util.DoubleRounder;
 import sql.SqlController;
 
 public class Transaction {
@@ -28,13 +29,11 @@ public class Transaction {
     }
 
     public Double calculateTransactionTotal(){
-        return costPerShare * numOfShare;
+        return DoubleRounder.round(costPerShare * numOfShare,2);
     }
 
-    public Transaction makeTransaction(){
-        SqlController.connectSqlServer();
-        TransactionMeta.TransactionMetaBuilder builder = TransactionMeta.TransactionMetaBuilder.newInstance();
-
-        return null;
+    public static Transaction makeTransaction(String stockSymbol,String month,Integer numOfShares){
+        TransactionMeta transactionMeta = SqlController.getStock(stockSymbol,month);
+        return new Transaction(transactionMeta,numOfShares);
     }
 }

@@ -6,6 +6,7 @@ public class Messages {
     public static String enterLastName = "Please enter your last name.";
     public static String startingGuide = "Lets get you started!\nWe have created a basic portfolio for with a buying power of $2500.\nUse these funds to purchase stocks from the list below.";
     public static String chooseNum = "Choose a number to make a selection:";
+    public static String notEnough = "Sorry, you don't have enough funds to make that purchase";
 
 
 
@@ -29,6 +30,7 @@ public class Messages {
         builder.append(horizontalBorders);
         return builder.toString();
     }
+
 
 
 }

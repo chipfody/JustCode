@@ -22,7 +22,6 @@ public class SqlController {
             System.exit(0);
         }
         System.out.println("Database still open");
-
     }
 
     public static void insertStock(){
@@ -43,6 +42,7 @@ public class SqlController {
 
     public static TransactionMeta getStock(String stockSymbol, String month){
         TransactionMeta.TransactionMetaBuilder builder = new TransactionMeta.TransactionMetaBuilder();
+        connectSqlServer();
         try{
             Statement statement = connection.createStatement();
             String sql = "SELECT * FROM " + stockSymbol +
