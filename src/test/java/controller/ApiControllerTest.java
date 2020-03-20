@@ -23,7 +23,7 @@ public class ApiControllerTest {
     // IMPORTANT! This test makes calls to the API, change the symbol to retrieve different stock tickers!
     @Test
     public void testFetchApiQuery(){
-        String symbol = "AAPL";
+        String symbol = "BP";
         String resultOfCall = ApiController.fetchApiQuery(ApiController.createApiQuery(symbol));
         logger.log(Level.INFO,resultOfCall);
     }

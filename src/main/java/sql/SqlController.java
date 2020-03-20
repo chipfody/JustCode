@@ -8,7 +8,7 @@ import java.sql.*;
 public class SqlController {
     private static Connection connection = null;
 
-    public static void insertStock(String symbol, String month, Double open, Double high, Double low, Double close, Integer volume) throws SQLException {
+    public static void insertStock(String symbol, String month, Double open, Double high, Double low, Double close, String volume) throws SQLException {
         connectSqlServer();
         String  sql = "INSERT INTO " + symbol + " (ticker, month, open, high, low, close, volume) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?);";
@@ -22,7 +22,7 @@ public class SqlController {
             preparedStatement.setDouble(4, high);
             preparedStatement.setDouble(5, low);
             preparedStatement.setDouble(6, close);
-            preparedStatement.setInt(7, volume);
+            preparedStatement.setString(7, volume);
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
@@ -84,13 +84,13 @@ public class SqlController {
         try {
             statement = connection.createStatement();
             String sql = "CREATE TABLE " + symbol +
-                    "(TICKER        VARCHAR(10) PRIMARY KEY NOT NULL," +
+                    "(TICKER        VARCHAR(10) NOT NULL," +
                     " MONTH         VARCHAR(15) NOT NULL," +
                     " OPEN          DECIMAL   NOT NULL, " +
                     " HIGH          DECIMAL   NOT NULL, " +
                     " LOW           DECIMAL   NOT NULL, " +
                     " CLOSE         DECIMAL  NOT NULL," +
-                    " VOLUME        BIGINT)";
+                    " VOLUME        VARCHAR(256) NOT NULL)";
             statement.executeUpdate(sql);
             statement.close();
             connection.commit();

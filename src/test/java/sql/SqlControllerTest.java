@@ -17,7 +17,7 @@ public class SqlControllerTest {
     @Test
     public void insertStockTest() throws SQLException {
         //SqlController.connectSqlServer();
-        SqlController.insertStock("QVC", "_2020-03", 165.2134, 175.0056, 56.9832, 138.5819, 636200296);
+        SqlController.insertStock("QVC", "_2020-03", 165.2134, 175.0056, 56.9832, 138.5819, "636200296");
     }
 
     @Test

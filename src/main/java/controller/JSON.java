@@ -21,7 +21,7 @@ public class JSON {
     private Double high;
     private Double low;
     private Double close;
-    private Integer volume;
+    private String volume;
 
     public void parsingJSON(String JSON) {
 
@@ -43,7 +43,7 @@ public class JSON {
                         high = Double.valueOf(monthlyJSONObject.getString("2. high"));
                         low = Double.valueOf(monthlyJSONObject.getString("3. low"));
                         close = Double.valueOf(monthlyJSONObject.getString("4. close"));
-                        volume = Integer.valueOf(monthlyJSONObject.getString("5. volume"));
+                        volume = monthlyJSONObject.getString("5. volume");
                         try {
                             SqlController.insertStock(symbol, dateOfMonth, open, high, low, close, volume);
                         } catch (SQLException e) {
@@ -73,10 +73,10 @@ public class JSON {
     }
 
     public void populateDB(){
-        String[] symb = new String[]{"AAPL", "AMZN", "BP", "COKE", "COST", "CVS", "CVX", "DPZ", "GOOGL", "HD", "IBM", "JNJ",
+        String[] symb = new String[]{"AAPL", "AMZN", "COKE", "COST", "CVS", "CVX", "DPZ", "GOOGL", "HD", "IBM", "JNJ",
         "JPM", "LULU", "MSFT", "MTB", "NFLX", "TGT", "TWTR", "ULTA", "V", "WMT", "XOM"};
         Stream.of(symb).forEach(s -> {
-            //parsingJSON(ApiController.fetchApiQuery(ApiController.createApiQuery(s)));
+            parsingJSON(ApiController.fetchApiQuery(ApiController.createApiQuery(s)));
         });
     }
 
@@ -104,7 +104,7 @@ public class JSON {
         return this.close;
     }
 
-    public Integer getVolume() {
+    public String getVolume() {
         return this.volume;
     }
 }

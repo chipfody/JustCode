@@ -10,7 +10,7 @@ public class ApiController {
         //beginning part of the get() method
         builder.append("https://alpha-vantage.p.rapidapi.com/query?datatype=json&symbol=")
                 .append(symbol.toUpperCase())
-                .append("&function=TIME_SERIES_MONTHLY");gi
+                .append("&function=TIME_SERIES_MONTHLY");
 
         return builder.toString();
     }
