@@ -8,9 +8,8 @@ import java.sql.*;
 public class SqlController {
     private static Connection connection = null;
 
-//<<<<<<< HEAD
     public static void insertStock(String symbol, String month, Double open, Double high, Double low, Double close, Integer volume) throws SQLException {
-        SqlController.createTable(symbol);
+        connectSqlServer();
         String  sql = "INSERT INTO " + symbol + " (ticker, month, open, high, low, close, volume) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?);";
 
@@ -53,6 +52,7 @@ public class SqlController {
                 .setVolume(rs.getInt("volume"));
             }
             statement.close();
+            connection.commit();
             connection.close();
         } catch (SQLException e) {
             System.err.println( e.getClass().getName()+": "+ e.getMessage() );
@@ -93,6 +93,8 @@ public class SqlController {
                     " VOLUME        BIGINT)";
             statement.executeUpdate(sql);
             statement.close();
+            connection.commit();
+            connection.close();
         } catch (SQLException e ) {
             System.err.println( e.getClass().getName()+": "+ e.getMessage() );
             System.exit(0);
