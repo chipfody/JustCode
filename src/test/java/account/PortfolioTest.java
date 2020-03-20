@@ -83,5 +83,4 @@ public class PortfolioTest {
         portfolio.updateCurrentPortfolioValue("_2020-03");
         System.out.println(portfolio.getAllPositionsFromPortfolio());
     }
-
 }
