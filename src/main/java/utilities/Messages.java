@@ -39,18 +39,21 @@ public class Messages {
         StringBuilder builder = new StringBuilder();
         int counter = 1;
         String titleDashes = "-------";
-        String titleWords = month;
         String titleNum = "#  |";
         String titleTicker = " tckr";
         String titlePrice = "price";
-        builder.append(String.format("%s %s %s",titleDashes,titleWords,titleDashes));
-        builder.append(String.format("\n| %-4s %-6s | %8s |\n",titleNum,titleTicker,titlePrice));
-        builder.append("--------------------------\n");
+        String titleIntro = "Stock Prices";
+        String titleIntroDashes = "******";
+        String dividerLine = "\n--------------------------";
+        builder.append(String.format("%s %s %s",titleIntroDashes,titleIntro,titleIntroDashes));
+        builder.append(String.format("\n%s %s %s",titleDashes,month,titleDashes));
+        builder.append(String.format("\n| %-4s %-6s | %8s |",titleNum,titleTicker,titlePrice));
+        builder.append(dividerLine);
         for (Map.Entry<String, Double> s :GetStocks.getAllStocksPrices(month,stocks).entrySet()) {
-            builder.append(String.format("| %-4d %-6s = %8.2f %s",counter,s.getKey(),s.getValue(),"|"));
-            builder.append("\n");
+            builder.append(String.format("\n| %-4d %-6s = %8.2f %s",counter,s.getKey(),s.getValue(),"|"));
             counter++;
         }
+        builder.append(dividerLine);
         System.out.println(builder.toString());
     }
 
