@@ -10,7 +10,7 @@ public class GetStocksTest {
 
     @Test
     public void getStartingStockTest(){
-        Map<String,Double> actual = GetStocks.getStartingStocks("2008-12-31",GetStocks.startingStocks);
+        Map<String,Double> actual = GetStocks.getAllStocksPrices("2008-12-31",GetStocks.startingStocks);
         assertEquals(actual.size(),20);
         assertEquals(85.35,actual.get("AAPL"),.00);
         assertEquals(56.06, actual.get("WMT"), .00);

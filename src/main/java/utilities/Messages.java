@@ -38,8 +38,16 @@ public class Messages {
     public static void printStockPrices(String month,String[] stocks){
         StringBuilder builder = new StringBuilder();
         int counter = 1;
-        for (Map.Entry<String, Double> s :GetStocks.getStartingStocks(month,stocks).entrySet()) {
-            builder.append(String.format("| %-2d %6s --> %-6.2f %s",counter,s.getKey(),s.getValue(),"|"));
+        String titleDashes = "-------";
+        String titleWords = month;
+        String titleNum = "#  |";
+        String titleTicker = " tckr";
+        String titlePrice = "price";
+        builder.append(String.format("%s %s %s",titleDashes,titleWords,titleDashes));
+        builder.append(String.format("\n| %-4s %-6s | %8s |\n",titleNum,titleTicker,titlePrice));
+        builder.append("--------------------------\n");
+        for (Map.Entry<String, Double> s :GetStocks.getAllStocksPrices(month,stocks).entrySet()) {
+            builder.append(String.format("| %-4d %-6s = %8.2f %s",counter,s.getKey(),s.getValue(),"|"));
             builder.append("\n");
             counter++;
         }
