@@ -13,7 +13,7 @@ public class UserTest {
     @Test
     public void IdTest(){
         long id= 14;
-        user.setId(id);
+        user.setId((int) id);
         long userId= user.getId();
        Assert.assertEquals(id,userId);
     }
