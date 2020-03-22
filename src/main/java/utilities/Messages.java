@@ -1,5 +1,9 @@
 package utilities;
 
+import sql.GetStocks;
+
+import java.util.Map;
+
 public class Messages {
     public static String welcome = "Welcome to the Historical Stock Market Sim App!";
     public static String enterFirstName = "Please enter your first name.";
@@ -29,6 +33,17 @@ public class Messages {
         }
         builder.append(horizontalBorders);
         return builder.toString();
+    }
+
+    public static void printStockPrices(String month,String[] stocks){
+        StringBuilder builder = new StringBuilder();
+        int counter = 1;
+        for (Map.Entry<String, Double> s :GetStocks.getStartingStocks(month,stocks).entrySet()) {
+            builder.append(String.format("| %-2d %6s --> %-6.2f %s",counter,s.getKey(),s.getValue(),"|"));
+            builder.append("\n");
+            counter++;
+        }
+        System.out.println(builder.toString());
     }
 
 
