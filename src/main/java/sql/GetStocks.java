@@ -3,11 +3,12 @@ package sql;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
 
 public class GetStocks {
-    public static String[] startingStocks = new String[]{"AAPL","AMZN","BP","COKE","COST","CVS","CVX","DPZ","GOOGL","HD","IBM","JNJ","MSFT","MTB","NFLX","TGT","ULTA","V","WMT","XOM"};
+    public static String[] startingStocks = new String[]{"AAPL","AMZN","BP","COKE","COST","CVS","CVX","DPZ","GOOGL","HD","IBM","JNJ","JPM","MSFT","MTB","NFLX","TGT","ULTA","V","WMT"};
 
     public static Map<String, Double> getAllStocksPrices(String month,String[] stocks){
         Map<String,Double> result = new TreeMap<>();
@@ -25,3 +26,4 @@ public class GetStocks {
         return result;
     }
 }
+
