@@ -12,11 +12,11 @@ public class User {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getFirstName() {
+    public String getFirstName( ) {
         return firstName;
     }
 
@@ -29,6 +29,7 @@ public class User {
     }
 
     public void setLastName(String lastName) {
+
         this.lastName = lastName;
     }
     public String getDob() {
