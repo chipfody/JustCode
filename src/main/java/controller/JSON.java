@@ -72,9 +72,7 @@ public class JSON {
 
     }
 
-    public void populateDB(){
-        String[] symb = new String[]{"AAPL", "AMZN", "COKE", "COST", "CVS", "CVX", "DPZ", "GOOGL", "HD", "IBM", "JNJ",
-        "JPM", "LULU", "MSFT", "MTB", "NFLX", "TGT", "TWTR", "ULTA", "V", "WMT", "XOM"};
+    public void populateDB(String...symb){
         Stream.of(symb).forEach(s -> {
             parsingJSON(ApiController.fetchApiQuery(ApiController.createApiQuery(s)));
         });
