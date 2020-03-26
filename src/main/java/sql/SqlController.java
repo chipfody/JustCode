@@ -16,14 +16,13 @@ public class SqlController {
     private static Connection connection = null;
     static Logger logger = Logger.getLogger(SqlController.class);
 
-    public static void insertStock(String symbol, String month, Double open, Double high, Double low, Double close, String volume) throws SQLException {
+    public static void insertStock(String symbol, String month, Double open, Double high, Double low, Double close, String volume) {
+        SqlController.createTable(symbol);
         connectSqlServer();
         String  sql = "INSERT INTO " + symbol + " (ticker, month, open, high, low, close, volume) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?);";
-
         try {
             PreparedStatement preparedStatement =  connection.prepareStatement(sql);
-
             preparedStatement.setString(1, symbol);
             preparedStatement.setString(2, month);
             preparedStatement.setDouble(3, open);
@@ -57,7 +56,7 @@ public class SqlController {
                 .setHigh(rs.getDouble("high"))
                 .setLow(rs.getDouble("low"))
                 .setClose(rs.getDouble("close"))
-                .setVolume(rs.getInt("volume"));
+                .setVolume(rs.getString ("volume"));
             }
             statement.close();
             connection.commit();
@@ -139,6 +138,10 @@ public class SqlController {
         }
         System.out.println("Table created successfully");
     }
+
+
+
+
     public static void insertUser(String user, int id, String firstName, String lastName, LocalDate dob) throws SQLException {
         SqlController.createUserTable(user);
         String  sql = "INSERT INTO " + user + " (ID, FIRSTNAME, LASTNAME, DOB) " +
