@@ -1,22 +1,27 @@
 package controller;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
 
 public class JSONTest {
 
-    @Test
-    public void makingJSONFileTest() throws IOException {
+    JSON test;
 
-        JSON JSON = new JSON();
-        JSON.parsingJSON(ApiController.fetchApiQuery(ApiController.createApiQuery("BP")));
-
+    @Before
+    public void init(){
+        test = new JSON();
     }
 
-//    @Test
-//    public void populateTest(){
-//        JSON test = new JSON();
-//        test.populateDB();
-//    }
+    @Test
+    public void makingJSONFileTest() throws IOException {
+        test.parsingJSON(ApiController.fetchApiQuery(ApiController.createApiQuery("BP")));
+    }
+
+    @Test
+    public void populateTest(){
+        String[] symb = new String[]{"rost", "hrb"};
+        test.populateDB();
+    }
 }

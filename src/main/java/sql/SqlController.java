@@ -56,7 +56,7 @@ public class SqlController {
                 .setHigh(rs.getDouble("high"))
                 .setLow(rs.getDouble("low"))
                 .setClose(rs.getDouble("close"))
-                .setVolume(rs.getString ("volume"));
+                .setVolume(rs.getString("volume"));
             }
             statement.close();
             connection.commit();
