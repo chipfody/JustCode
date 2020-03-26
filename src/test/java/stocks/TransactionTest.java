@@ -14,7 +14,7 @@ public class TransactionTest {
     public Double expectedHigh = 175.0000;
     public Double expectedLow = 138.5000;
     public Double expectedClose = 145.7000;
-    public Integer expectedVolume = 636200296;
+    public String expectedVolume = "636200296";
     public Integer expectedNumOfShares = 3;
 
     @Before

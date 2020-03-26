@@ -13,7 +13,7 @@ public class TransactionMetaTest {
     public Double expectedHigh = 175.0000;
     public Double expectedLow = 138.5000;
     public Double expectedClose = 145.7000;
-    public Integer expectedVolume = 636200296;
+    public String expectedVolume = "636200296";
 
     @Before
     public void init(){
@@ -34,7 +34,7 @@ public class TransactionMetaTest {
         Double actualHigh = test.getHigh();
         Double acutalLow = test.getLow();
         Double actualClose = test.getClose();
-        Integer actualVolume = test.getVolume();
+        String actualVolume = test.getVolume();
 
         assertEquals(expectedClose, actualClose);
         assertEquals(expectedDate, actualDate);

@@ -44,11 +44,7 @@ public class JSON {
                         low = Double.valueOf(monthlyJSONObject.getString("3. low"));
                         close = Double.valueOf(monthlyJSONObject.getString("4. close"));
                         volume = monthlyJSONObject.getString("5. volume");
-                        try {
-                            SqlController.insertStock(symbol, dateOfMonth, open, high, low, close, volume);
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
+                        SqlController.insertStock(symbol, dateOfMonth, open, high, low, close, volume);
                     });
         } catch (Exception e) {
             System.err.println(e.getMessage());

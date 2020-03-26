@@ -10,14 +10,13 @@ import java.time.LocalDate;
 public class SqlController {
     private static Connection connection = null;
 
-    public static void insertStock(String symbol, String month, Double open, Double high, Double low, Double close, String volume) throws SQLException {
+    public static void insertStock(String symbol, String month, Double open, Double high, Double low, Double close, String volume) {
+        SqlController.createTable(symbol);
         connectSqlServer();
         String  sql = "INSERT INTO " + symbol + " (ticker, month, open, high, low, close, volume) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?);";
-
         try {
             PreparedStatement preparedStatement =  connection.prepareStatement(sql);
-
             preparedStatement.setString(1, symbol);
             preparedStatement.setString(2, month);
             preparedStatement.setDouble(3, open);
@@ -121,6 +120,10 @@ public class SqlController {
         }
         System.out.println("Table created successfully");
     }
+
+
+
+
     public static void insertUser(String user, int id, String firstName, String lastName, LocalDate dob) throws SQLException {
         SqlController.createUserTable(user);
         String  sql = "INSERT INTO " + user + " (ID, FIRSTNAME, LASTNAME, DOB) " +
