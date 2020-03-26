@@ -6,7 +6,7 @@ public class TransactionMeta {
     private final Double high;
     private final Double low;
     private final Double close;
-    private final Integer volume;
+    private final String volume;
 
     public TransactionMeta(TransactionMetaBuilder builder){
         this.date = builder.date;
@@ -37,7 +37,7 @@ public class TransactionMeta {
         return close;
     }
 
-    public Integer getVolume() {
+    public String getVolume() {
         return volume;
     }
 
@@ -47,7 +47,7 @@ public class TransactionMeta {
         private Double high;
         private Double low;
         private Double close;
-        private Integer volume;
+        private String volume;
 
         public static TransactionMetaBuilder newInstance(){
             return new TransactionMetaBuilder();
@@ -78,7 +78,7 @@ public class TransactionMeta {
             return this;
         }
 
-        public TransactionMetaBuilder setVolume(Integer newVolume){
+        public TransactionMetaBuilder setVolume(String newVolume){
             this.volume = newVolume;
             return this;
         }
