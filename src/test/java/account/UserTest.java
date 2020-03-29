@@ -4,6 +4,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.time.LocalDate;
+
 public class UserTest {
      User user;
     @Before
@@ -31,11 +33,12 @@ public class UserTest {
         String userLastName = user.getLastName();
         Assert.assertEquals(lastName,userLastName);
     }
+
     @Test
     public void dobTest(){
-        String dob= "04262019";
+        LocalDate dob = LocalDate.of(2019, 4, 26);
         user.setDob(dob);
-        String userDob = user.getDob();
+        LocalDate userDob = user.getDob();
         Assert.assertEquals(dob,userDob);
     }
 

@@ -1,14 +1,16 @@
 package account;
 
+import java.time.LocalDate;
+
 public class User {
 
 
-    private long id;
+    private int id;
     private String firstName;
     private String lastName;
-    private String dob;
+    private LocalDate dob;
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
@@ -32,11 +34,21 @@ public class User {
 
         this.lastName = lastName;
     }
-    public String getDob() {
+    public LocalDate getDob() {
         return dob;
     }
 
-    public void setDob(String dob) {
+    public void setDob(LocalDate dob) {
         this.dob = dob;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", dob='" + dob + '\'' +
+                '}';
     }
 }

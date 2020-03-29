@@ -5,15 +5,11 @@ import sql.GetStocks;
 import java.util.Map;
 
 public class Messages {
-    public static String welcome = "Welcome to the Historical Stock Market Sim App!";
-    public static String enterFirstName = "Please enter your first name.";
-    public static String enterLastName = "Please enter your last name.";
-    public static String startingGuide = "Lets get you started!\nWe have created a basic portfolio for with a buying power of $2500.\nUse these funds to purchase stocks from the list below.";
+    private static Console console = new Console(System.in, System.out);
+
     public static String chooseNum = "Choose a number to make a selection:";
     public static String notEnough = "Sorry, you don't have enough funds to make that purchase";
-
-
-
+    public static String enterID = "Please enter your id.";
 
 
 
@@ -56,7 +52,4 @@ public class Messages {
         builder.append(dividerLine);
         System.out.println(builder.toString());
     }
-
-
-
 }

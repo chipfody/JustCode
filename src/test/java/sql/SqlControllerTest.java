@@ -4,6 +4,7 @@ import org.junit.Test;
 import stocks.TransactionMeta;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 import static org.junit.Assert.*;
 
@@ -32,6 +33,34 @@ public class SqlControllerTest {
     public void createTableTest() {
 //        SqlController.connectSqlServer();
         SqlController.createTable("QVC");
- }
+    }
 
+    @Test
+    public void crateUserTableTest(){
+        SqlController.createUserTable();
+    }
+
+    @Test
+    public void hasIdTest(){
+        assertFalse(SqlController.hasId(0));
+    }
+
+    @Test
+    public void hasIdTest2() throws SQLException {
+        SqlController.insertUser(2,
+                "test",
+                "test",
+                LocalDate.of(2012, 10, 12));
+        assertTrue(SqlController.hasId(2));
+    }
+
+    @Test
+    public void insertGetUserTest() throws SQLException {
+        SqlController.insertUser(1,
+                "test",
+                "test",
+                LocalDate.of(2012, 10, 12));
+
+        System.out.println(SqlController.getUser(1).toString());
+    }
 }
