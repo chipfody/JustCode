@@ -1,14 +1,20 @@
 package sql;
 
+import java.sql.DriverManager;
+
+import com.sun.istack.internal.logging.Logger;
+import org.postgresql.Driver;
 import account.User;
 import stocks.Transaction;
 import stocks.TransactionMeta;
 
 import java.sql.*;
+import java.util.logging.Level;
 import java.time.LocalDate;
 
 public class SqlController {
     private static Connection connection = null;
+    static Logger logger = Logger.getLogger(SqlController.class);
 
     public static void insertStock(String symbol, String month, Double open, Double high, Double low, Double close, String volume) {
         SqlController.createTable(symbol);
@@ -79,6 +85,17 @@ public class SqlController {
         System.out.println("Database remains open");
     }
 
+    public static Connection getConnection(){
+        try {
+            DriverManager.registerDriver(new Driver());
+            logger.log(Level.INFO,"Connected!");
+            return DriverManager.getConnection("jdbc:postgresql://zipcode-group-project.cx9szw6knskg.us-east-1.rds.amazonaws.com:5432/stockprices",
+                    "zcgroupproject", "cdhkvvkhdc");
+        } catch (SQLException e) {
+            throw new RuntimeException("Can't Connect", e);
+        }
+    }
+
     public static void createTable(String symbol) {
         connectSqlServer();
         Statement statement = null;
@@ -102,6 +119,7 @@ public class SqlController {
         }
         System.out.println("Table created successfully");
     }
+
     public static void createUserTable() {
         connectSqlServer();
         Statement statement = null;
@@ -152,6 +170,7 @@ public class SqlController {
             Statement statement = connection.createStatement();
             String sql = "SELECT * FROM users" +
                     " WHERE ID = " + id ;
+
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()){
                 user.setId(rs.getInt("ID"));

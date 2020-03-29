@@ -1,16 +1,15 @@
 package utilities;
 
+import sql.GetStocks;
+
+import java.util.Map;
+
 public class Messages {
     private static Console console = new Console(System.in, System.out);
 
     public static String chooseNum = "Choose a number to make a selection:";
     public static String notEnough = "Sorry, you don't have enough funds to make that purchase";
     public static String enterID = "Please enter your id.";
-
-
-
-
-
 
 
 
@@ -30,5 +29,27 @@ public class Messages {
         }
         builder.append(horizontalBorders);
         return builder.toString();
+    }
+
+    public static void printStockPrices(String month,String[] stocks){
+        StringBuilder builder = new StringBuilder();
+        int counter = 1;
+        String titleDashes = "-------";
+        String titleNum = "#  |";
+        String titleTicker = " tckr";
+        String titlePrice = "price";
+        String titleIntro = "Stock Prices";
+        String titleIntroDashes = "******";
+        String dividerLine = "\n--------------------------";
+        builder.append(String.format("%s %s %s",titleIntroDashes,titleIntro,titleIntroDashes));
+        builder.append(String.format("\n%s %s %s",titleDashes,month,titleDashes));
+        builder.append(String.format("\n| %-4s %-6s | %8s |",titleNum,titleTicker,titlePrice));
+        builder.append(dividerLine);
+        for (Map.Entry<String, Double> s :GetStocks.getAllStocksPrices(month,stocks).entrySet()) {
+            builder.append(String.format("\n| %-4d %-6s = %8.2f %s",counter,s.getKey(),s.getValue(),"|"));
+            counter++;
+        }
+        builder.append(dividerLine);
+        System.out.println(builder.toString());
     }
 }
