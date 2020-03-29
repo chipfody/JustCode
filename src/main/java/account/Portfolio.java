@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 
 public class Portfolio {
-    private ArrayList<Stock> mainPortfolio;
     Console console = new Console(System.in,System.out);
+    private ArrayList<Stock> mainPortfolio;
     private Double buyingPower;
     private Double currentPortfolioValue;
 
