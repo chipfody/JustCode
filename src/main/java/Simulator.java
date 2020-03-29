@@ -9,7 +9,7 @@ public class Simulator {
     public static void main(String[] args) {
         Campaign campaign = new Campaign();
 
-        console.println(Messages.welcome);
+        console.printOpening();
         campaign.newOrContinue();
     }
 
