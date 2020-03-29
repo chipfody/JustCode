@@ -2,6 +2,8 @@ package stocks;
 
 import org.decimal4j.util.DoubleRounder;
 import sql.SqlController;
+import utilities.Console;
+import utilities.Messages;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,7 +91,7 @@ public class Stock {
             }
             return retTransaction;
         }catch (NullPointerException e){
-            System.out.println("Error : " + date + " transaction not found!");
+            Console.printTransactionError(date);
         }
         return retTransaction;
     }

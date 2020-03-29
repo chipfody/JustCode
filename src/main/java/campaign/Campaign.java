@@ -5,52 +5,48 @@ import sql.SqlController;
 import utilities.Console;
 import utilities.Messages;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Campaign {
 
-    public Console console;
-    public User user;
-
-    public Campaign(){
-        console = new Console(System.in,System.out);
-    }
+    private Console console = console = new Console(System.in,System.out);;
+    private User user;
 
     public int generateId(){
-        int leftLimit = 1000;
-        int rightLimit = 9999;
-        int generateLong = 1000 + (int) (Math.random() * (rightLimit - leftLimit));
-        if (SqlController.hasId(generateLong)){
+        int generateLong = 1000 + (int) (Math.random() * (1000 - 9999));
+        if (SqlController.hasId(generateLong))
             generateId();
-        }
         return generateLong;
     }
 
     public int getYearOfBirth(){
-        int year = console.getIntegerInput(Messages.enterYear);
+        int year = console.askYearOfBirth();
         while(!(year <= LocalDate.now().getYear() && year >= LocalDate.now().getYear()-80)){
-            year = console.getIntegerInput(Messages.enterYear);
+            console.wrongYearError();
+            year = console.askYearOfBirth();
         }
         return year;
     }
 
     public int getMonthOfBirth(){
-        int month = console.getIntegerInput(Messages.enterMonth);
+        int month = console.askMonthOfBirth();
         while(!(month <= 12 && month >= 1)){
-            month = console.getIntegerInput(Messages.enterMonth);
+            console.wrongMonthError();
+            month = console.askMonthOfBirth();
         }
         return month;
     }
 
     public int getDayOfBirth(int year,int month){
-        int day = console.getIntegerInput(Messages.enterDay);
+        int day = console.askDayOfBirth();
         int maxDay;
         Integer[] month31 = new Integer[]{1, 3, 5, 7, 8, 10, 12};
         ArrayList<Integer> list31 = new ArrayList<>(Arrays.asList(month31));
         Integer[] month30 = new Integer[]{4, 6, 9, 11};
-        ArrayList<Integer> list30 = new ArrayList<>(Arrays.asList(month31));
+        ArrayList<Integer> list30 = new ArrayList<>(Arrays.asList(month30));
 
         if(list31.contains(month))
             maxDay = 31;
@@ -61,46 +57,57 @@ public class Campaign {
         else maxDay = 28;
 
         while(!(day <= maxDay && day >= 1)){
-            day = console.getIntegerInput(Messages.enterDay);
+            console.wrongDayError();
+            day = console.askDayOfBirth();
         }
         return day;
     }
 
-    public void createUser(){
-        user = new User();
-        user.setFirstName(console.getStringInput(Messages.enterFirstName));
-        user.setLastName(console.getStringInput(Messages.enterLastName));
-        console.getStringInput(Messages.enterDOB);
+    public LocalDate getDOB(){
         int year = getYearOfBirth();
         int month = getMonthOfBirth();
         int day = getDayOfBirth(year, month);
-        user.setDob(LocalDate.of(year, month, day));
+        return LocalDate.of(year, month, day);
+    }
+
+    public void createUser(){
+        user = new User();
+        user.setFirstName(console.getName("first"));
+        user.setLastName(console.getName("last"));
+        console.askDOB();
+        user.setDob(getDOB());
         int id = generateId();
         user.setId(id);
-        console.println("Welcome " + user.getFirstName());
-        console.println(Messages.rememberID + id);
+        try {
+            SqlController.insertUser(user.getId(), user.getFirstName(), user.getLastName(), user.getDob());
+        }catch (SQLException e){
+            Console.printSQLError("Insert");
+        }
     }
 
     public void newCampaign(){
         createUser();
-        console.println(Messages.startingGuide);
+        console.printWelcome(user.getFirstName(), user.getLastName(), user.getId());
+        console.printStartGuide();
         console.getIntegerInput(Messages.startingStocks());
     }
 
     public void continueCampaign(){
-        int id = console.getIntegerInput(Messages.enterID);
+        int id = console.askForID();
         while (!SqlController.hasId(id)){
-            console.println(Messages.idNotFound);
-            id = console.getIntegerInput(Messages.enterID);
+            console.idNotFoundError();
+            id = console.askForID();
             if(id == 3)
                 newOrContinue();
         }
     }
 
     public void newOrContinue(){
-        int answer = console.getIntegerInput(Messages.newOrContinue);
+        console.printOpening();
+        int answer = console.getNewGameOrContinueDecision();
         while (answer < 1 && answer > 2){
-            answer = console.getIntegerInput(Messages.newOrContinue);
+            console.newContinueError();
+            answer = console.getNewGameOrContinueDecision();
         }
         if(answer == (1))
             newCampaign();
