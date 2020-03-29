@@ -102,33 +102,31 @@ public class SqlController {
         }
         System.out.println("Table created successfully");
     }
-    public static void createUserTable(String User) {
+    public static void createUserTable() {
         connectSqlServer();
         Statement statement = null;
         try {
             statement = connection.createStatement();
-            String sql = "CREATE TABLE " + User +
+            String sql = "CREATE TABLE users" +
                     "(ID         INT PRIMARY KEY NOT NULL," +
                     " FIRSTNAME  VARCHAR(15) NOT NULL," +
                     " lASTNAME   VARCHAR(15)   NOT NULL, " +
-                    " DOB        DATE   NOT NULL ";
+                    " DOB        DATE   NOT NULL)";
             statement.executeUpdate(sql);
             statement.close();
+            connection.commit();
+            connection.close();
         } catch (SQLException e ) {
             System.err.println( e.getClass().getName()+": "+ e.getMessage() );
             System.exit(0);
         }
-        System.out.println("Table created successfully");
+        System.out.println("User table created successfully");
     }
 
-
-
-
-    public static void insertUser(String user, int id, String firstName, String lastName, LocalDate dob) throws SQLException {
-        SqlController.createUserTable(user);
-        String  sql = "INSERT INTO " + user + " (ID, FIRSTNAME, LASTNAME, DOB) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?);";
-
+    public static void insertUser(int id, String firstName, String lastName, LocalDate dob) throws SQLException {
+        connectSqlServer();
+        String  sql = "INSERT INTO users (ID, FIRSTNAME, LASTNAME, DOB) " +
+                "VALUES (?, ?, ?, ?);";
         try {
             PreparedStatement preparedStatement =  connection.prepareStatement(sql);
 
@@ -136,7 +134,6 @@ public class SqlController {
             preparedStatement.setString(2, firstName);
             preparedStatement.setString(3, lastName);
             preparedStatement.setDate(4, Date.valueOf(dob));
-
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
@@ -146,23 +143,19 @@ public class SqlController {
             System.err.println( e.getClass().getName()+": "+ e.getMessage() );
             System.exit(0);
         }
-        System.out.println("Records created successfully");
+        System.out.println("Saved user successfully");
     }
-    public static User getUser(long id){
-        String User ="User";
+    public static User getUser(int id){
+        connectSqlServer();
         User user  = new User() ;
-
         try{
             Statement statement = connection.createStatement();
-            String sql = "SELECT * FROM " + User +
-                    " WHERE ID = '" + id ;
-            connectSqlServer();
-
+            String sql = "SELECT * FROM users" +
+                    " WHERE ID = " + id ;
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()){
-
                 user.setId(rs.getInt("ID"));
-                user.setDob(rs.getString("DOB"));
+                user.setDob(rs.getDate("DOB").toLocalDate());
                 user.setFirstName((rs.getString("FIRSTNAME")));
                 user.setLastName(rs.getString("LASTNAME"));
                 if(user.getId()==id) {
@@ -175,7 +168,26 @@ public class SqlController {
             System.err.println( e.getClass().getName()+": "+ e.getMessage() );
             System.exit(0);
         }
-        System.out.println("Records created successfully");
+        System.out.println("User retrieved successfully");
         return user;
+    }
+
+    public static Boolean hasId(int id){
+        connectSqlServer();
+        Boolean hasId = false;
+        try {
+            String sql = "SELECT * FROM users WHERE ID = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
+            if(rs.next())
+                hasId = true;
+            preparedStatement.close();
+            connection.close();
+            return hasId;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return hasId;
     }
 }

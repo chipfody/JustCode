@@ -80,4 +80,9 @@ public class Console {
     public void pressEnterToCount(){
         getStringInputWithoutln("press enter to continue");
     }
+
+    public Integer newGameOrContinue(){
+        return getIntegerInput(Messages.newOrContinue);
+    }
+
 }
